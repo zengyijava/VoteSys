@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.dao.VoteMapper">
+<!-- public List<VotePO> findAll() throws Exception; -->
+<select id="findAll"  resultType="VotePO">
+  select * from tb_vote
+</select>
+
+<!-- public int addVote(VotePO po, String[] options) throws Exception  -->
+
+
+
+
+<!-- public List<VoteVO> findVote() throws Exception -->
+<select id="findVote"  resultType="com.yc.vo.VoteVO">
+  select o.vid,v.vname,count(o.vid) opNum from tb_vote v inner join
+   tb_options o on v.vid=o.vid group by o.vid,v.vname
+</select>
+
+
+<!-- public int totalVoteNum(String vid) throws Exception  -->
+
+
+
+</mapper>

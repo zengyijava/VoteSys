@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 
+properties：用于引入外部properties文件中内容
+resource:类路径下的资源
+url:引用网络路径或磁盘路径下的资源
+ -->
+ 
+ <properties resource="db.properties"></properties>
+
+<settings>
+<!-- 设置延迟加载的全局开关   开启延迟加载 -->
+<setting name="lazyLoadingEnabled" value="true"/>
+<!-- 防止升降版本带来的不同 -->
+<setting name="aggressiveLazyLoading" value="false"/>
+
+</settings>
+
+
+
+<typeAliases>
+	<!-- 给单独类配置一个别名 -->
+	<package name="com.yc.po"></package>
+</typeAliases>
+
+<!-- envirements：环境mybatis 可以配置多种环境，default指定使用的某种环境 -->
+  <environments default="dev_mysql">
+    <environment id="dev_mysql">
+    <!-- 数据源的配置 -->
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${user}"/>
+        <property name="password" value="${pwd}"/>
+      </dataSource>
+    </environment>
+    
+    <!-- 使用oraclel连接方式 -->
+    <environment id="dev_oracle">
+    <!-- 数据源的配置 -->
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${oracle.driver}"/>
+        <property name="url" value="${oracle.url}"/>
+        <property name="username" value="${oracle.user}"/>
+        <property name="password" value="${oracle.pwd}"/>
+      </dataSource>
+    </environment>
+    
+  </environments>
+  
+  <databaseIdProvider type="DB_VENDOR">
+  <property name="SQL Server" value="sqlserver"/>
+  <property name="DB2" value="db2"/>
+  <property name="Oracle" value="oracle" />
+  <property name="MySQL" value="mysql" />
+</databaseIdProvider>
+  
+  
+  <mappers>
+  <!--
+    <mapper resource="com/yc/dao/UserMapper.xml"/>
+    -->
+    <!--  批量注册  -->
+    <package name="com.yc.dao"/>
+  </mappers>
+</configuration>

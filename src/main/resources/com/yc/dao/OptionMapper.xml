@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.dao.OptionMapper">
+<!-- public List<OptionPO> findByVid(String vid) throws Exception -->
+<select id="findByVid"  resultType="OptionPO">
+  select * from tb_options where vid=#{vid}
+</select>
+
+<!-- public List<OptionVO> findVOByVid(String vid) throws Exception   -->
+<select id="findVOByVid"  resultType="com.yc.vo.OptionVO">
+  select v.vid,v.vname,v.endDate,v.startDate,v.vtype, o.opid,o.opname,o.views,o.usid  from tb_options o inner join
+   tb_vote v on v.vid=o.vid where v.vid=#{vid}
+</select>
+
+
+
+<!-- public int updateViews(String [] options) throws Exception -->
+<update id="updateViews" >
+  update  tb_options set views=views+1  where opname=#{opname} 
+</update>
+
+
+<!--   -->
+
+
+
+</mapper>

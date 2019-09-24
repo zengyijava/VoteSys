@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.dao.UserMapper">
+<!-- public int register(UserPO po) throws Exception; -->
+<insert id="register" parameterType="UserPO">
+  insert into tb_user values(#{usid},#{uname},#{pwd})
+</insert>
+
+
+<!-- public UserPO login(UserPO po) throws Exception; -->
+<select id="login" resultType="UserPO">
+    select * from tb_user where uname=#{uname} and pwd=#{pwd}
+</select>
+
+
+
+<!-- public List<UserPO> find(UserPO po) throws Exception; -->
+<resultMap id="find01" type="UserPO">
+ 
+    <id property="usid" column="usid"/>
+    <result property="uname" column="uname"/>
+    <result property="pwd" column="pwd"/>
+   
+</resultMap>
+
+
+<sql id="selectColumn"> usid,uname,pwd</sql>  
+<select id="find" resultMap="find01">
+   select 
+   <include refid="selectColumn"></include>
+   from tb_user
+   <where>
+   	<if test="usid != null">
+         usid = #{usid}
+    </if>
+    <if test="uname != null">
+        AND  uname = #{uname}
+    </if>
+    <if test="pwd != null">
+        AND pwd = #{pwd}
+    </if>
+    
+  </where>
+   
+ </select>
+
+
+
+</mapper>
